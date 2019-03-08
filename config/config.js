@@ -35,6 +35,12 @@ export default {
                 { path: '/index', component: './index' },
             ]
         },
-       
-    ]
+
+    ],
+    proxy: {
+        "/api": {
+            target: "https://easy-mock.com/mock/5c82106a74340a4ed3ba02b3/",
+            changeOrigin: true,
+        }
+    }
 }  

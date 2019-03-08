@@ -1,3 +1,5 @@
+import { login } from '@/services/login';
+
 export default {
     namespace: 'login',
 
@@ -5,7 +7,8 @@ export default {
 
     effects:{
         *login({ payload }, { call, put }) {
-            console.log(payload)
+            const response = yield call(login, payload);
+            console.log(response)
         }
     },
 
