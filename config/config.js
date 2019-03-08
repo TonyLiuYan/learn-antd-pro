@@ -21,13 +21,20 @@ export default {
     ],
     routes: [
         {
+            path: '/login',
+            component: '../layouts/layoutLogin',
+            routes: [
+                { path: '/login', component: './Login/index' },
+            ]
+        },
+        {
             path: '/',
             component: '../layouts/index',
             routes: [
                 { path: '/', redirect: './index' },
                 { path: '/index', component: './index' },
-                { path: '/login', component: './Login/index' },
             ]
         },
+       
     ]
 }  
