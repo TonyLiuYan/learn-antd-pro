@@ -1,5 +1,7 @@
-import request from '@/utils/request';
+import { loginApi } from '@/api/login';
 
 export async function login(params) {
-    return request.post('/api/logins', params);
+  const res = await loginApi(params);
+  console.log('services',res)
+  return res
 }

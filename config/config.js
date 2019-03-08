@@ -1,5 +1,8 @@
+const fs = require('fs');
 
-// ref: https://umijs.org/config/
+const appDirectory = fs.realpathSync(process.cwd());
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+
 export default {
     treeShaking: true,
     plugins: [
@@ -42,5 +45,10 @@ export default {
             target: "https://easy-mock.com/mock/5c82106a74340a4ed3ba02b3/",
             changeOrigin: true,
         }
+    },
+    resolve:{
+      alias:{
+        '@/api':resolveApp('src/api')
+      }
     }
-}  
+}
