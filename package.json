@@ -8,6 +8,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "ant-design-pro": "^2.2.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
