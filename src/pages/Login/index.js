@@ -25,10 +25,12 @@ class Index extends PureComponent {
   get = () => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'login/get'
+      type: 'login/get',
+      payload: {
+        name:'tony'
+      },
     })
   }
-
 
   render() {
     const { getFieldDecorator } = this.props.form;

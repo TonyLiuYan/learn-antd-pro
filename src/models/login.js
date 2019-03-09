@@ -11,7 +11,7 @@ export default {
             console.log('models',response)
         },
         *get({ payload }, { call, put }) {
-          const response = yield call(get);
+          const response = yield call(get,payload);
           console.log('models',response)
       }
     },
