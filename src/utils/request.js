@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { notification } from 'antd';
 import router from 'umi/router';
-const CancelToken = axios.CancelToken;
-const source = CancelToken.source();
+let CancelToken = axios.CancelToken;
+let source = CancelToken.source();
 //请求拦截器
 axios.interceptors.request.use(
   config => {
@@ -10,7 +10,7 @@ axios.interceptors.request.use(
       'Content-Type': 'application/json;charset=utf-8'
     }
     config.validateStatus = validateStatus
-    // config.cancelToken=source.token
+    config.cancelToken = source.token
     console.log('interceptors.request config', config)
     return config;
   },
@@ -21,14 +21,16 @@ axios.interceptors.request.use(
 )
 
 const validateStatus = (status) => {
-  //无论状态码是多少 都会进来 返回false的时候，请求返回的是undefined
+  //无论状态码是多少 都会进来 返回false的时候请求返回的是undefined
   console.log('validateStatus', status)
   if (status === 200) {
     return true
   } else {
+    console.log('非200状态码检测')
+    source.cancel('haaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     const errortext = codeMessage[status];
     notification.error({
-      message: `请求错误`,
+      message: '请求错误',
       description: errortext,
     })
 
@@ -49,17 +51,38 @@ axios.interceptors.response.use(response => {
   }
   return response
 }, error => {
+  //404,500等时候会进来
+  if (axios.isCancel(error)) {
+    console.log('Request canceled', error.message);
+    return new Promise(() => { });
+    // throw new Error('cuole')
+  }
+  if (error.response && error.response.status) {
+    console.log('interceptors.response error', error)
+    // return Promise.resolve(error)
+    return new Promise(() => { });
+  } else {
+    notification.error({ message: '请检查网络连接' })
+  }
+
+
+
   //
   //404,500等时候会进来
-  console.log('interceptors.response error', error.response)
-  console.log('interceptors.response error status', error.response.status)
-  if (error.response.status === 500) {
-    source.cancel('登录失效')
-    router.push('/')
-    console.log('登录失效')
+  // console.log('interceptors.response error status', error.response.status)//在断网的时候error.response.status会报错，并无法操作下一次请求
+  // if (error.response.status === 500) {
 
-  }
-  return Promise.resolve(error)
+  //   router.push('/')
+  //   console.log('登录失效')
+
+  // }
+  // let cancel = axios.isCancel(error)
+  // console.log('前', cancel)
+  // // source.cancel()
+  // cancel = axios.isCancel(error)
+  // console.log('后', cancel)
+
+  // throw new Error('错了')
 })
 
 
@@ -68,16 +91,27 @@ axios.interceptors.response.use(response => {
 
 export const post = (url, data = {}) => {
   return new Promise((resolve, reject) => {
-    axios.post(url, { data: data, cancelToken: source.token })
+    axios.post(url, data)
       .then(response => {
         console.log('post then', response.data)
         resolve(response.data)
       })
       .catch(error => {
         console.error('post catch', error)
-        reject(error)
+        reject(error.data)
       })
   })
+}
+export function get(url, params) {
+  return new Promise((resolve, reject) => {
+    axios.get(url, {
+      params: params
+    }).then(res => {
+      resolve(res.data);
+    }).catch(error => {
+      reject(error.data)
+    })
+  });
 }
 
 

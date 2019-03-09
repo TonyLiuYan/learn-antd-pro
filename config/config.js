@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const path = require('path');
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
@@ -46,9 +46,9 @@ export default {
             changeOrigin: true,
         }
     },
-    resolve:{
-      alias:{
-        '@/api':resolveApp('src/api')
-      }
-    }
+    // resolve:{
+    //   alias:{
+    //     '@/api':resolveApp('src/api')
+    //   }
+    // }
 }
