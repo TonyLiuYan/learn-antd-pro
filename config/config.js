@@ -46,9 +46,4 @@ export default {
             changeOrigin: true,
         }
     },
-    // resolve:{
-    //   alias:{
-    //     '@/api':resolveApp('src/api')
-    //   }
-    // }
 }
