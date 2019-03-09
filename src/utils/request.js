@@ -91,11 +91,11 @@ export const post = (url, data = {}) => {
   return new Promise((resolve, reject) => {
     axios.post(url, data)
       .then(response => {
-        console.log('post then', response)
+        console.log('post then', response.data)
         resolve(response.data)
       })
       .catch(error => {
-        console.error('post catch', error)
+        console.error('post catch', error.data)
         reject(error.data)
       })
   })
@@ -106,10 +106,10 @@ export function get(url, params = {}) {
     axios.get(url, {
       params: params
     }).then(response => {
-      console.log('get then', response)
+      console.log('get then', response.data)
       resolve(response.data);
     }).catch(error => {
-      console.error('get catch', error)
+      console.error('get catch', error.data)
       reject(error.data)
     })
   });
