@@ -15,11 +15,6 @@ export default {
             dynamicImport: false,
             title: '中税网',
             dll: false,
-            routes: {
-                exclude: [
-                    /components\//,
-                ],
-            },
         }],
     ],
     routes: [

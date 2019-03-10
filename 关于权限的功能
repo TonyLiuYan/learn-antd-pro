@@ -13,3 +13,24 @@
 5.注销后对权限的刷新
 6.页面内，指定区域的权限设置
 7.前端如何保存权限信息
+
+************************使 用**********************************
+
+首先，我们是基于antd pro的权限组件 RenderAuthorized 这个是antd pro暴露出来的组件
+
+引用方式：
+import RenderAuthorized from 'ant-design-pro/lib/Authorized';
+
+RenderAuthorized是一个方法，返回的是一个组件
+方法的参数是一个string或者array，建议使用数组，以应对多角色的情况
+
+这样使用，然后进行导出组件，方法的参数可以另行进行进一步封装
+let Authorized = RenderAuthorized(['admin']);
+export default Authorized;
+引用以上组件的方式：import Authorized from '@/utils/authority/Authorized'
+使用组件：可参照官方文档
+<Authorized authority={['admin']}>
+    这里是权限管辖范围内
+</Authorized>
+
+
