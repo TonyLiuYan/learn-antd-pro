@@ -32,13 +32,20 @@ export default {
         },
         {
             path: '/',
-            component: '../layouts/index',
+            component: '../layouts/BasicLayout',
+            authority: ['admin'],
             routes: [
                 { path: '/', redirect: './index' },
-                { path: '/index', component: './index' },
+                {
+                    path: '/index', name: '菜单1', component: './index', routes: [
+                        { path: '/index/index11', name: '菜单1-1',component: './index' ,authority: ['user']},
+                        { path: '/index/index12', name: '菜单1-2',component: './index' },
+                    ]
+                },
+                { path: '/index2', name: '菜单2', component: './index' },
+                { path: '/index3', name: '菜单3', component: './index' },
             ]
         },
-
     ],
     proxy: {
         "/api": {

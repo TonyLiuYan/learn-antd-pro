@@ -40,19 +40,16 @@ class Index extends PureComponent {
           <Form.Item>
             {getFieldDecorator('username', {
               rules: [{ required: true, message: 'Please input your username!' }],
-            })
-              (
+            })(
                 <div> 用户名：<Input></Input></div>
               )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('password', {
               rules: [{ required: true, message: 'Please input your Password!' }],
-            })
-              (
+            })(
                 <div> 密码：<Input.Password></Input.Password></div>
               )}
-
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">登录</Button>
