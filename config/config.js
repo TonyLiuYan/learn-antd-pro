@@ -15,11 +15,6 @@ export default {
             dynamicImport: false,
             title: '中税网',
             dll: false,
-            routes: {
-                exclude: [
-                    /components\//,
-                ],
-            },
         }],
     ],
     routes: [
@@ -53,9 +48,4 @@ export default {
             changeOrigin: true,
         }
     },
-    // resolve:{
-    //   alias:{
-    //     '@/api':resolveApp('src/api')
-    //   }
-    // }
 }
